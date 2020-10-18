@@ -8,6 +8,9 @@ print(tf.__version__)
 class FeedForward:
     def __init__(self):
         (self.train_data, self.train_labels), (self.test_data, self.test_labels) = keras.datasets.mnist.load_data()
+        self.train_data = self.train_data / 255.0
+        self.test_data = self.test_data / 255.0
+
         print("Train samples: ", len(self.train_data))
         print("Test samples: ", len(self.test_data))
 
@@ -30,7 +33,7 @@ class FeedForward:
         self.model = keras.Sequential([ # layers in sequence
                 keras.layers.Flatten(input_shape=(28,28)),
                 keras.layers.Dense(128, activation="relu"), # Dense means fully connected
-                keras.layers.Dense(10, activation="softmax")
+                keras.layers.Dense(10, activation="sigmoid")
             ])
         self.model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
 
@@ -56,7 +59,7 @@ class FeedForward:
 
     def makeSomePrediction(self):
         prediction = self.model.predict(self.test_data)
-
+        print(prediction[0])
         for i in range(5):
             plt.grid(False)
             plt.imshow(self.test_data[i], cmap=plt.cm.binary)
@@ -70,9 +73,9 @@ class FeedForward:
 if __name__ == "__main__":
     nn = FeedForward()
     #nn.showSomeData()
-    nn.createModel()
-    nn.trainModel(1)
-    nn.saveModel("./model")
-    #nn.loadModel("./model")
+    #nn.createModel()
+    #nn.trainModel(5)
+    #nn.saveModel("./model")
+    nn.loadModel("./model")
     nn.makeSomePrediction()
     #nn.saveModel("./model")
