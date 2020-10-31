@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 # written in tf 2.2.0
 print(tf.__version__)
 
+
 class FeedForward:
     def __init__(self):
         (self.train_data, self.train_labels), (self.test_data, self.test_labels) = keras.datasets.mnist.load_data()
@@ -73,9 +74,9 @@ class FeedForward:
 if __name__ == "__main__":
     nn = FeedForward()
     #nn.showSomeData()
-    #nn.createModel()
-    #nn.trainModel(5)
-    #nn.saveModel("./model")
-    nn.loadModel("./model")
+    nn.createModel()
+    nn.trainModel(5)
+    nn.saveModel("./model")
+    #nn.loadModel("./model")
     nn.makeSomePrediction()
     #nn.saveModel("./model")

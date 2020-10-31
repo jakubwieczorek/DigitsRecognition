@@ -4,22 +4,43 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../src/b1.c \
+../src/b2.c \
+../src/config.c \
+../src/feedforward.c \
 ../src/main.c \
+../src/sample.c \
 ../src/stm32h7xx_it.c \
 ../src/syscalls.c \
-../src/system_stm32h7xx.c 
+../src/system_stm32h7xx.c \
+../src/w1.c \
+../src/w2.c 
 
 OBJS += \
+./src/b1.o \
+./src/b2.o \
+./src/config.o \
+./src/feedforward.o \
 ./src/main.o \
+./src/sample.o \
 ./src/stm32h7xx_it.o \
 ./src/syscalls.o \
-./src/system_stm32h7xx.o 
+./src/system_stm32h7xx.o \
+./src/w1.o \
+./src/w2.o 
 
 C_DEPS += \
+./src/b1.d \
+./src/b2.d \
+./src/config.d \
+./src/feedforward.d \
 ./src/main.d \
+./src/sample.d \
 ./src/stm32h7xx_it.d \
 ./src/syscalls.d \
-./src/system_stm32h7xx.d 
+./src/system_stm32h7xx.d \
+./src/w1.d \
+./src/w2.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

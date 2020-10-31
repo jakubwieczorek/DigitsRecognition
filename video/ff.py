@@ -44,8 +44,8 @@ class FeedForward:
         z = []  # without activation
 
         for o in range(0, output_length):  # calculate each output in order
-            y.append(0);
-            z.append(0);
+            y.append(0)
+            z.append(0)
             for i in range(0, input_length):  # take ith weights from every input node
                 y[o] += weights_matrix[i][o] * x[i]
 

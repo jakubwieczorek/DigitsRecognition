@@ -87,11 +87,8 @@ src/main.o: ../src/main.c \
  /home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/HAL_Driver/Inc/stm32h7xx_ll_usb.h \
  /home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h \
  /home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/HAL_Driver/Inc/stm32h7xx_hal_hcd.h \
- /home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/w1.h \
- /home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/w2.h \
- /home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/b1.h \
- /home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/b2.h \
- /home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/sample.h
+ /home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/feedforward.h \
+ /home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/config.h
 
 /home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/CMSIS/device/stm32h7xx.h:
 
@@ -269,12 +266,6 @@ src/main.o: ../src/main.c \
 
 /home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/HAL_Driver/Inc/stm32h7xx_hal_hcd.h:
 
-/home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/w1.h:
+/home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/feedforward.h:
 
-/home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/w2.h:
-
-/home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/b1.h:
-
-/home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/b2.h:
-
-/home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/sample.h:
+/home/jakub/Documents/PyCharmProjects/numbers_detection/neural_network/1_hidden/784_128_10/uC/inc/config.h:
