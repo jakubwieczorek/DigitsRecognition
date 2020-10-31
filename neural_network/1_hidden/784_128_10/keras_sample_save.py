@@ -13,7 +13,8 @@ if __name__ == "__main__":
     
     (train_data, train_labels), (test_data, test_labels) = keras.datasets.mnist.load_data()
 
-    np.savetxt('./sample.txt', test_data[0].flatten() / 255.0, fmt='%f')
+    #np.savetxt('./sample.txt', test_data[0].flatten() / 255.0, fmt='%f')
+    np.savetxt('./sample.txt', test_data[0], fmt='%f')
 
     plt.grid(False) 
     plt.imshow(test_data[0], cmap=plt.cm.binary)
