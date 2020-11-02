@@ -10,9 +10,11 @@ C_SRCS += \
 ../src/feedforward.c \
 ../src/main.c \
 ../src/sample.c \
+../src/service.c \
 ../src/stm32h7xx_it.c \
 ../src/syscalls.c \
 ../src/system_stm32h7xx.c \
+../src/test.c \
 ../src/w1.c \
 ../src/w2.c 
 
@@ -23,9 +25,11 @@ OBJS += \
 ./src/feedforward.o \
 ./src/main.o \
 ./src/sample.o \
+./src/service.o \
 ./src/stm32h7xx_it.o \
 ./src/syscalls.o \
 ./src/system_stm32h7xx.o \
+./src/test.o \
 ./src/w1.o \
 ./src/w2.o 
 
@@ -36,9 +40,11 @@ C_DEPS += \
 ./src/feedforward.d \
 ./src/main.d \
 ./src/sample.d \
+./src/service.d \
 ./src/stm32h7xx_it.d \
 ./src/syscalls.d \
 ./src/system_stm32h7xx.d \
+./src/test.d \
 ./src/w1.d \
 ./src/w2.d 
 

@@ -12,6 +12,8 @@
 #include "stm32h7xx.h"
 #include "feedforward.h"
 #include "config.h"
+#include "service.h"
+#include "test.h"
 
 int main(void)
 {
@@ -26,14 +28,11 @@ int main(void)
 //
 //	think(seven, y, z);
 
+	test();
+
 	while(1)
 	{
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);
-		HAL_Delay(1000);
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);
-		HAL_Delay(1000);
+
 	}
 
 	return 0;
