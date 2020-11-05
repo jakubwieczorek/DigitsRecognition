@@ -1,14 +1,3 @@
-/**
-  ******************************************************************************
-  * @file    stm32h7xx_it.c
-  * @author  Ac6
-  * @version V1.0
-  * @date    02-Feb-2015
-  * @brief   Default Interrupt Service Routines.
-  ******************************************************************************
-*/
-
-/* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx_hal.h"
 #include "stm32h7xx.h"
 #ifdef USE_RTOS_SYSTICK
@@ -16,22 +5,9 @@
 #endif
 #include "stm32h7xx_it.h"
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
+extern UART_HandleTypeDef uart;
+extern DMA_HandleTypeDef dma_uart;
 
-/******************************************************************************/
-/*            	  	    Processor Exceptions Handlers                         */
-/******************************************************************************/
-
-/**
-  * @brief  This function handles SysTick Handler, but only if no RTOS defines it.
-  * @param  None
-  * @retval None
-  */
 void SysTick_Handler(void)
 {
 	HAL_IncTick();
@@ -39,4 +15,14 @@ void SysTick_Handler(void)
 #ifdef USE_RTOS_SYSTICK
 	osSystickHandler();
 #endif
+}
+
+void DMA1_Stream0_IRQHandler(void)
+{
+  HAL_DMA_IRQHandler(&dma_uart);
+}
+
+void USART3_IRQHandler(void)
+{
+	HAL_UART_IRQHandler(&uart);
 }

@@ -16,12 +16,23 @@
 #include "test.h"
 #include<math.h>
 
+uint8_t Received[10];
+
 int main(void) {
 	HAL_Init();
-//
+
 	__HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_USART3_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_DMA1_CLK_ENABLE();
 
 	gpio_config();
+	uart_config();
+	dma_config();
+	nvic_config();
+
+	HAL_UART_Receive_DMA(&uart, Received, 10);
+
 
 	double y[10] = {0};
 	double z[10] = {0};

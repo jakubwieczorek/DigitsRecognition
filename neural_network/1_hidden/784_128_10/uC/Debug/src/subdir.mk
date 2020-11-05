@@ -6,6 +6,7 @@
 C_SRCS += \
 ../src/b1.c \
 ../src/b2.c \
+../src/callbacks.c \
 ../src/config.c \
 ../src/feedforward.c \
 ../src/main.c \
@@ -21,6 +22,7 @@ C_SRCS += \
 OBJS += \
 ./src/b1.o \
 ./src/b2.o \
+./src/callbacks.o \
 ./src/config.o \
 ./src/feedforward.o \
 ./src/main.o \
@@ -36,6 +38,7 @@ OBJS += \
 C_DEPS += \
 ./src/b1.d \
 ./src/b2.d \
+./src/callbacks.d \
 ./src/config.d \
 ./src/feedforward.d \
 ./src/main.d \

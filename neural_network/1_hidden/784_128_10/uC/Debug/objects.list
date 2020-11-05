@@ -78,6 +78,7 @@
 "HAL_Driver/Src/stm32h7xx_ll_usb.o"
 "src/b1.o"
 "src/b2.o"
+"src/callbacks.o"
 "src/config.o"
 "src/feedforward.o"
 "src/main.o"
