@@ -36,7 +36,7 @@ double sigmoid(double x)
 	return 1.0 / (1.0 + (double)exp(-x));
 }
 
-void think(double x[], double y[], double z[])
+void think(const double x[], double y[], double z[])
 {
 	double l1_output[128] = {0}, z1[128] = {0};
 	feedforward(x        , z1, w1[0], 784, 128, b1, l1_output, &ReLU);

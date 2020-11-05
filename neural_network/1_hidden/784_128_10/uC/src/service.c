@@ -121,3 +121,33 @@ void switch_9()
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_SET);
 }
+
+uint8_t max_idx(double y[10]) {
+	uint8_t max_idx = 0;
+	double max = y[0];
+
+	for(int i = 0; i < 10; i++) {
+		if(y[i] > max) {
+			max = y[i];
+			max_idx = i;
+		}
+	}
+
+	return max_idx;
+}
+
+void display_digit(uint8_t digit) {
+	switch_off_all();
+	switch(digit) {
+		case 0: switch_0(); break;
+		case 1: switch_1(); break;
+		case 2: switch_2(); break;
+		case 3: switch_3(); break;
+		case 4: switch_4(); break;
+		case 5: switch_5(); break;
+		case 6: switch_6(); break;
+		case 7: switch_7(); break;
+		case 8: switch_8(); break;
+		case 9: switch_9(); break;
+	}
+}

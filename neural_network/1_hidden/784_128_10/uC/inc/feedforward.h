@@ -12,6 +12,6 @@ extern const double b2[10];
 void feedforward(const double x[], double z[], const double weights_matrix[], int ROW, int COL, const double biases[], double y[], double (*activationFunction)(double));
 double ReLU(double x);
 double sigmoid(double x);
-void think(double x[], double y[], double z[]);
+void think(const double x[], double y[], double z[]);
 
 #endif

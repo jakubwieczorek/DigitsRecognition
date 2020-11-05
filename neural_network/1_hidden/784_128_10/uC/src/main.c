@@ -14,25 +14,28 @@
 #include "config.h"
 #include "service.h"
 #include "test.h"
+#include<math.h>
 
-int main(void)
-{
+int main(void) {
 	HAL_Init();
 //
 	__HAL_RCC_GPIOB_CLK_ENABLE();
 
 	gpio_config();
 
-//	double y[10] = {0};
-//	double z[10] = {0};
+	double y[10] = {0};
+	double z[10] = {0};
 //
 //	think(seven, y, z);
 
 	test();
 
-	while(1)
-	{
+	while(1) {
+		think(seven, y, z);
 
+		display_digit(max_idx(y));
+
+		HAL_Delay(1000);
 	}
 
 	return 0;
