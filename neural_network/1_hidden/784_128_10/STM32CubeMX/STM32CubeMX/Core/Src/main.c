@@ -26,6 +26,7 @@
 #include "feedforward.h"
 #include "service.h"
 #include "test.h"
+#include "stdbool.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -75,7 +76,9 @@ DMA_HandleTypeDef hdma_usart3_rx;
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
 /* USER CODE BEGIN PV */
-uint8_t Received[2];
+uint8_t Received[3];
+double image[784];
+volatile bool done = false;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -128,9 +131,11 @@ int main(void)
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
   test();
+	double y[10] = {0};
+	double z[10] = {0};
   // DMA does not work!!!!
 //  https://community.st.com/s/article/FAQ-DMA-is-not-working-on-STM32H7-devices
-  HAL_UART_Receive_IT(&huart3, Received, 2);
+  HAL_UART_Receive_IT(&huart3, Received, 3);
 
   /* USER CODE END 2 */
 
@@ -141,9 +146,16 @@ int main(void)
 
   while (1)
   {
-	  size = sprintf(data, "Hello!\n\r");
-	  HAL_UART_Transmit_IT(&huart3, data, size);
-	  HAL_Delay(1000);
+	  if(done) {
+		  think(seven, y, z);
+
+		  display_digit(max_idx(y));
+
+		  done = false;
+	  }
+//	  size = sprintf(data, "Hello!\n\r");
+//	  HAL_UART_Transmit_IT(&huart3, data, size);
+//	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

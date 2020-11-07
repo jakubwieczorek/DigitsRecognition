@@ -1,12 +1,12 @@
 import cv2
-from time import sleep
-
 import math
 from tensorflow import keras
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
+import time
 import ff
+import serial
 
 if __name__ == "__main__":
     cap = cv2.VideoCapture(0)
@@ -17,6 +17,15 @@ if __name__ == "__main__":
     nn2 = ff.FeedForward.load('./model')
 
     # https: // docs.opencv.org / master / d7 / d4d / tutorial_py_thresholding.html
+
+    ser = serial.Serial(
+        port='/dev/ttyACM0',
+        baudrate=115200,
+        parity=serial.PARITY_NONE,
+        stopbits=serial.STOPBITS_ONE,
+        bytesize=serial.EIGHTBITS
+    )
+
     while True:
         ret, img = cap.read()
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -26,13 +35,20 @@ if __name__ == "__main__":
 
         # np.savetxt('./aaa.txt', bitwise, fmt='%f')
 
+        ser.write("aaa".encode())
+        for i in bitwise.flatten():
+            to_send = '{:>3}'.format(str(int(i / 255)))
+            ser.write(to_send.encode())
+            #print(to_send)
+            # time.sleep(0.1)
+        ser.write("bbb".encode())
+        time.sleep(2)
         final = bitwise / 255.0
         cv2.imshow('aaa', final)
 
         # sleep(1)
 
         prediction = nn2.think(final.flatten())
-        # print(prediction)
         print("Prediction: " + str(np.argmax(prediction)))
 
         keyCode = cv2.waitKey(1)

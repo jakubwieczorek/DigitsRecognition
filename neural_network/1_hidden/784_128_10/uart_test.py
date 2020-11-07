@@ -13,6 +13,7 @@ if __name__ == "__main__":
     )
 
     while True:
-        ser.write("123".encode())
-        print("aaa")
-        time.sleep(2)
+        for i in range(0, 10):
+            ser.write(("0" + str(i)).encode())
+            print("0" + str(i))
+            time.sleep(2)
