@@ -1580,6 +1580,13 @@ void HAL_UART_IRQHandler(UART_HandleTypeDef *huart)
   }
 
   /* If some errors occur */
+//  if( ((isrflags & USART_ISR_ORE) != RESET) && ((isrflags & USART_ISR_RXNE) == RESET) ) // aaaaaa
+//  {
+//    __HAL_UART_CLEAR_IT(huart, UART_CLEAR_OREF);
+//    huart->ErrorCode |= HAL_UART_ERROR_ORE;
+//    return;
+//  }
+
   if(   (errorflags != RESET)
      && (   ((cr3its & (USART_CR3_RXFTIE | USART_CR3_EIE)) != RESET)
          || ((cr1its & (USART_CR1_RXNEIE | USART_CR1_PEIE)) != RESET)))

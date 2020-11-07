@@ -31,7 +31,7 @@ int main(void) {
 	dma_config();
 	nvic_config();
 
-	HAL_UART_Receive_DMA(&uart, Received, 10);
+//	HAL_UART_Receive_DMA(&uart, Received, 10);
 
 
 	double y[10] = {0};
@@ -41,10 +41,15 @@ int main(void) {
 
 	test();
 
+	uint8_t Data[50];
+	int size = sprintf(Data, "START\n\r");
+
 	while(1) {
 		think(seven, y, z);
 
 		display_digit(max_idx(y));
+
+		HAL_UART_Transmit_IT(&uart, Data, size);
 
 		HAL_Delay(1000);
 	}
