@@ -37,12 +37,9 @@ if __name__ == "__main__":
 
         ser.write("aaa".encode())
         for i in bitwise.flatten():
-            to_send = '{:>3}'.format(str(int(i / 255)))
+            to_send = '{:3d}'.format(i)
             ser.write(to_send.encode())
-            #print(to_send)
-            # time.sleep(0.1)
         ser.write("bbb".encode())
-        time.sleep(2)
         final = bitwise / 255.0
         cv2.imshow('aaa', final)
 

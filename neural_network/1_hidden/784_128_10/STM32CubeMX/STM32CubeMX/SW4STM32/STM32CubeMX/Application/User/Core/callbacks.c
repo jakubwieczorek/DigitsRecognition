@@ -6,7 +6,7 @@
 extern uint8_t Received[3];
 extern UART_HandleTypeDef huart3;
 extern double image[784];
-extern bool done = false;
+extern volatile bool done;
 int counter = 0;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
@@ -17,7 +17,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		done = true;
 	} else {
 		int value = atoi((const char*)Received);
-		image[counter++] = ((double)value) / 255;
+		image[counter++] = ((double)value) / 255.0;
 	}
 
 	HAL_UART_Receive_IT(&huart3, Received, 3);
