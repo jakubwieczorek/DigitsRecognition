@@ -1,12 +1,36 @@
 import cv2
-import math
-from tensorflow import keras
 import numpy as np
-import matplotlib.pyplot as plt
-from PIL import Image
-import time
 import ff
 import serial
+from otsu import otsu
+
+class Preprocessing():
+    ADAPTIVE_THRESHOLD = 1
+    OTSU = 2
+    OTSU_EMBEDDED = 3
+
+###################################################
+# configuration part:
+###################################################
+SERIAL = False
+PREPROCESSING = Preprocessing.OTSU
+
+def adaptiveThreshold(img):
+    resized = cv2.resize(gray, (28, 28))
+    return cv2.adaptiveThreshold(resized, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 9)
+
+def adaptiveThresholdOriginal(img):
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    resized = cv2.resize(gray, (28, 28))
+    return cv2.adaptiveThreshold(resized, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 9)
+
+def send(ser, data):
+    ser.write("aaa".encode())
+    for i in data.flatten():
+        to_send = '{:3d}'.format(i)
+        ser.write(to_send.encode())
+    ser.write("bbb".encode())
+
 
 if __name__ == "__main__":
     cap = cv2.VideoCapture(0)
@@ -16,34 +40,34 @@ if __name__ == "__main__":
 
     nn2 = ff.FeedForward.load('./model')
 
-    # https: // docs.opencv.org / master / d7 / d4d / tutorial_py_thresholding.html
-
-    ser = serial.Serial(
-        port='/dev/ttyACM0',
-        baudrate=115200,
-        parity=serial.PARITY_NONE,
-        stopbits=serial.STOPBITS_ONE,
-        bytesize=serial.EIGHTBITS
-    )
+    if SERIAL:
+        ser = serial.Serial(
+            port='/dev/ttyACM0',
+            baudrate=115200,
+            parity=serial.PARITY_NONE,
+            stopbits=serial.STOPBITS_ONE,
+            bytesize=serial.EIGHTBITS
+        )
 
     while True:
         ret, img = cap.read()
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        resized = cv2.resize(gray, (28, 28))
-        trunc = cv2.adaptiveThreshold(resized, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 9)
-        bitwise = cv2.bitwise_not(trunc)
 
-        # np.savetxt('./aaa.txt', bitwise, fmt='%f')
+        if PREPROCESSING == Preprocessing.ADAPTIVE_THRESHOLD:
+            resized = cv2.resize(gray, (28, 28))
+            trunc_inv = cv2.adaptiveThreshold(resized, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 9)
+        elif PREPROCESSING == Preprocessing.OTSU:
+            resized = cv2.resize(gray, (28, 28))
+            trunc_inv = otsu(resized)
+        elif PREPROCESSING == Preprocessing.OTSU_EMBEDDED:  # requires to click a button on the uC
+            resized = cv2.resize(gray, (28, 28))
+            trunc_inv = otsu(resized)
 
-        ser.write("aaa".encode())
-        for i in bitwise.flatten():
-            to_send = '{:3d}'.format(i)
-            ser.write(to_send.encode())
-        ser.write("bbb".encode())
-        final = bitwise / 255.0
+        if SERIAL:
+            send(ser, trunc_inv)
+
+        final = trunc_inv / 255.0
         cv2.imshow('aaa', final)
-
-        # sleep(1)
 
         prediction = nn2.think(final.flatten())
         print("Prediction: " + str(np.argmax(prediction)))
