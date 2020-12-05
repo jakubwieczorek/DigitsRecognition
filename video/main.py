@@ -13,8 +13,8 @@ class Preprocessing():
 ###################################################
 # configuration part:
 ###################################################
-SERIAL = False
-PREPROCESSING = Preprocessing.OTSU_ORIGINAL_IMAGE_NO_SERIAL
+SERIAL = True
+PREPROCESSING = Preprocessing.OTSU_EMBEDDED
 
 def adaptiveThreshold(img):
     resized = cv2.resize(gray, (28, 28))

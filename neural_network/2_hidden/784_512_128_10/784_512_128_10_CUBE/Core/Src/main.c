@@ -32,6 +32,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -72,7 +73,6 @@ ETH_TxPacketConfig TxConfig;
 ETH_HandleTypeDef heth;
 
 UART_HandleTypeDef huart3;
-DMA_HandleTypeDef hdma_usart3_rx;
 
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
@@ -81,14 +81,12 @@ PCD_HandleTypeDef hpcd_USB_OTG_FS;
 uint8_t Received[3];
 double image[IMAGE_SIZE];
 volatile bool done = false;
-volatile bool is_otsu = false;
-
+volatile bool is_otsu;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_DMA_Init(void);
 static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
@@ -129,29 +127,23 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
   MX_ETH_Init();
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
   test();
-	double y[10] = {0};
-	double z[10] = {0};
-  // DMA does not work!!!!
-//  https://community.st.com/s/article/FAQ-DMA-is-not-working-on-STM32H7-devices
-  HAL_UART_Receive_IT(&huart3, Received, 3);
-
+   	double y[10] = {0};
+   	double z[10] = {0};
+     // DMA does not work!!!!
+   //  https://community.st.com/s/article/FAQ-DMA-is-not-working-on-STM32H7-devices
+     HAL_UART_Receive_IT(&huart3, Received, 3);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t data[50]; // Tablica przechowujaca wysylana wiadomosc.
-  uint16_t size = 0; // Rozmiar wysylanej wiadomosci
-
   while (1)
   {
 	  if(done) {
-
 		  if(is_otsu) {
 			  otsu(image, IMAGE_SIZE);
 		  }
@@ -166,9 +158,6 @@ int main(void)
 
 		  done = false;
 	  }
-//	  size = sprintf(data, "Hello!\n\r");
-//	  HAL_UART_Transmit_IT(&huart3, data, size);
-//	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -375,22 +364,6 @@ static void MX_USB_OTG_FS_PCD_Init(void)
 }
 
 /**
-  * Enable DMA controller clock
-  */
-static void MX_DMA_Init(void)
-{
-
-  /* DMA controller clock enable */
-  __HAL_RCC_DMA1_CLK_ENABLE();
-
-  /* DMA interrupt init */
-  /* DMA1_Stream0_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
-
-}
-
-/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -463,10 +436,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
-
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
 

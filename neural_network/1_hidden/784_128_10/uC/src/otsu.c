@@ -2,13 +2,13 @@
 
 #define BINS_NUMBER 256
 
-void calculate_histogram(int histogram[], int image[], int size) {
+void calculate_histogram(int histogram[], double image[], int size) {
 	for(int i = 0; i < size; i++) {
-		histogram[image[i]]++;
+		histogram[(int)image[i]]++;
 	}
 }
 
-void otsu(int image[], int size) {
+void otsu(double image[], int size) {
 	int histogram[BINS_NUMBER] = {0};
 	calculate_histogram(histogram, image, size);
 
@@ -41,6 +41,6 @@ void otsu(int image[], int size) {
 	}
 
 	for(int i = 0; i < size; i++) {
-		image[i] = image[i] > threshold ? 0 : 255;
+		image[i] = image[i] > threshold ? 255 : 0;
 	}
 }
