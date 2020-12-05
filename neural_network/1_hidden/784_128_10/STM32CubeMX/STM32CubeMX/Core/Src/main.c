@@ -27,6 +27,7 @@
 #include "service.h"
 #include "test.h"
 #include "stdbool.h"
+#include "otsu.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -76,8 +77,9 @@ DMA_HandleTypeDef hdma_usart3_rx;
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
 /* USER CODE BEGIN PV */
+#define IMAGE_SIZE 784
 uint8_t Received[3];
-double image[784];
+double image[IMAGE_SIZE];
 volatile bool done = false;
 /* USER CODE END PV */
 
@@ -147,6 +149,13 @@ int main(void)
   while (1)
   {
 	  if(done) {
+
+		  otsu(image, IMAGE_SIZE);
+
+		  for(int i = 0; i < IMAGE_SIZE; i++) {
+			  image[i] = image[i] / 255.0;
+		  }
+
 		  think(image, y, z);
 
 		  display_digit(max_idx(y));

@@ -1,7 +1,4 @@
 #include<math.h>
-#include<stdio.h>
-#include"seven.h"
-#include"7_2.h"
 
 #define BINS_NUMBER 256
 
@@ -42,15 +39,8 @@ void otsu(double image[], int size) {
 			threshold = t;
 		}
 	}
-	printf("threshold = %d\n", threshold);
+
 	for(int i = 0; i < size; i++) {
 		image[i] = image[i] > threshold ? 255 : 0;
 	}
 }
-
-int main(void)
-{
-	otsu(seven2, 28*28);
-	return 0;
-}
-

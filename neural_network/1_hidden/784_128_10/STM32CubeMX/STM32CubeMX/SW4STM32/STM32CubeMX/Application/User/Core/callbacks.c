@@ -17,7 +17,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		done = true;
 	} else {
 		int value = atoi((const char*)Received);
-		image[counter++] = ((double)value) / 255.0;
+		image[counter++] = (double)value;
+
+//		image[counter++] = ((double)value) / 255.0;
 	}
 
 	HAL_UART_Receive_IT(&huart3, Received, 3);

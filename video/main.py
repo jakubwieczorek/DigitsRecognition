@@ -7,13 +7,14 @@ from otsu import otsu
 class Preprocessing():
     ADAPTIVE_THRESHOLD = 1
     OTSU = 2
-    OTSU_EMBEDDED = 3
+    OTSU_ORIGINAL_IMAGE_NO_SERIAL = 3
+    OTSU_EMBEDDED = 4
 
 ###################################################
 # configuration part:
 ###################################################
-SERIAL = False
-PREPROCESSING = Preprocessing.OTSU
+SERIAL = True
+PREPROCESSING = Preprocessing.OTSU_EMBEDDED
 
 def adaptiveThreshold(img):
     resized = cv2.resize(gray, (28, 28))
@@ -40,7 +41,7 @@ if __name__ == "__main__":
 
     nn2 = ff.FeedForward.load('./model')
 
-    if SERIAL:
+    if PREPROCESSING != Preprocessing.OTSU_ORIGINAL_IMAGE_NO_SERIAL and SERIAL:
         ser = serial.Serial(
             port='/dev/ttyACM0',
             baudrate=115200,
@@ -62,12 +63,17 @@ if __name__ == "__main__":
         elif PREPROCESSING == Preprocessing.OTSU_EMBEDDED:  # requires to click a button on the uC
             resized = cv2.resize(gray, (28, 28))
             trunc_inv = otsu(resized)
+        elif PREPROCESSING == Preprocessing.OTSU_ORIGINAL_IMAGE_NO_SERIAL:
+            trunc_inv = otsu(gray)
 
-        if SERIAL:
+        if PREPROCESSING != Preprocessing.OTSU_ORIGINAL_IMAGE_NO_SERIAL and SERIAL:
             send(ser, trunc_inv)
 
         final = trunc_inv / 255.0
         cv2.imshow('aaa', final)
+
+        if PREPROCESSING == Preprocessing.OTSU_ORIGINAL_IMAGE_NO_SERIAL: # resize for neural network
+            final = cv2.resize(final, (28, 28))
 
         prediction = nn2.think(final.flatten())
         print("Prediction: " + str(np.argmax(prediction)))
