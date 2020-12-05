@@ -13,8 +13,8 @@ class Preprocessing():
 ###################################################
 # configuration part:
 ###################################################
-SERIAL = True
-PREPROCESSING = Preprocessing.OTSU_EMBEDDED
+SERIAL = False
+PREPROCESSING = Preprocessing.OTSU_ORIGINAL_IMAGE_NO_SERIAL
 
 def adaptiveThreshold(img):
     resized = cv2.resize(gray, (28, 28))
@@ -25,8 +25,13 @@ def adaptiveThresholdOriginal(img):
     resized = cv2.resize(gray, (28, 28))
     return cv2.adaptiveThreshold(resized, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 9)
 
-def send(ser, data):
+def send(ser, data, type):
     ser.write("aaa".encode())
+    if type == Preprocessing.OTSU_EMBEDDED:
+        ser.write("OOO".encode())
+    else:
+        ser.write("AAA".encode())
+
     for i in data.flatten():
         to_send = '{:3d}'.format(i)
         ser.write(to_send.encode())
@@ -60,14 +65,14 @@ if __name__ == "__main__":
         elif PREPROCESSING == Preprocessing.OTSU:
             resized = cv2.resize(gray, (28, 28))
             trunc_inv = otsu(resized)
-        elif PREPROCESSING == Preprocessing.OTSU_EMBEDDED:  # requires to click a button on the uC
+        elif PREPROCESSING == Preprocessing.OTSU_EMBEDDED:
             resized = cv2.resize(gray, (28, 28))
             trunc_inv = otsu(resized)
         elif PREPROCESSING == Preprocessing.OTSU_ORIGINAL_IMAGE_NO_SERIAL:
             trunc_inv = otsu(gray)
 
         if PREPROCESSING != Preprocessing.OTSU_ORIGINAL_IMAGE_NO_SERIAL and SERIAL:
-            send(ser, trunc_inv)
+            send(ser, trunc_inv, PREPROCESSING)
 
         final = trunc_inv / 255.0
         cv2.imshow('aaa', final)

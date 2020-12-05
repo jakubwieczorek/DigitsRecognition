@@ -3,7 +3,6 @@
 #include"b1.h"
 #include"b2.h"
 #include"sample.h"
-#include"sample2.h"
 #include<math.h>
 #include<stdio.h>
 
