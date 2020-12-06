@@ -12,4 +12,4 @@ To goal is to recognise individual handwritten digits (outside the MNIST databas
 Don't hesitate to send me an email on jakub.wieczorek0101@gmail.com.
 
 ## Copyright and license
-IsolationVerifier project is copyright to CERN under the [MIT License](https://opensource.org/licenses/MIT).
+This project is copyright to Jakub Wieczorek under the [MIT License](https://opensource.org/licenses/MIT).
