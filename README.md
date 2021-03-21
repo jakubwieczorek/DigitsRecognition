@@ -8,6 +8,11 @@ To goal is to recognise individual handwritten digits (outside the MNIST databas
 2.  7 segment display
 3.  Tensorflow 2
 
+## Videos
+1. https://youtu.be/160r1aK84-g OTSU thresholding, real time
+2. https://youtu.be/Fwi876-QRW0    OTSU thresholding full resolution
+3. https://youtu.be/UEzEBQmksbM    Adaptive thresholding
+
 ## Questions or need help?
 Don't hesitate to send me an email on jakub.wieczorek0101@gmail.com.
 
