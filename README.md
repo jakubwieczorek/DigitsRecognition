@@ -1,5 +1,7 @@
 # Visual digits recognition on embedded system basing on neural networks
-
+<p align="center">
+  <img src="https://raw.githubusercontent.com/wiki/jakubwieczorek/DigitsRecognition/uC.jpg" width="500" />
+</p>
 ## About 
 To goal is to recognise individual handwritten digits (outside the MNIST database) in real time by the camera. The images are captured in Python, resized to the 28x28 size and sent to the embedded system through UART, where deep feed forward neural network is implemented. Detected digit is displayed on the 7 segment display. System provides two ways of preprocessing the images. Adaptive Gaussian thresholding with the help of Open CV's API and Otsu thresholding implemented from the basis both in pure Python and C (in embedded system). Desired preprocessing might be chosen in the main script of communication application.
 
